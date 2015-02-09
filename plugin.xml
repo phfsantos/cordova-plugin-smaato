@@ -1,0 +1,56 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	id="br.com.wivvo.pedro.cordova.smaato"
+	version="0.0.1">
+
+  <name>Smaato Ad</name>
+  <description>Cordova/PhoneGap plugin for Smaato, support Banner, Interstitial.</description>
+  <author>Pedro Santos</author>
+  <license>MIT</license>
+  <keywords>ad,mobfox,rjfun</keywords>
+  <repo>https://github.com/phfsoftware/cordova-smaato.git</repo>
+  <issue>https://github.com/phfsoftware/cordova-smaato/issues</issue>
+
+
+  <js-module src="www/SmaatoPositions.js" name="SmaatoPositions">
+    <clobbers target="window.SMAATO_AD_POSITION" />
+  </js-module>
+
+
+  <js-module src="www/SmattoSizes.js" name="SmattoSizes">
+    <clobbers target="window.SMAATO_AD_SIZE" />
+  </js-module>
+
+  <engines>
+    <engine name="cordova" version=">=3.0" />
+  </engines>
+
+  <js-module src="www/Smaato.js" name="Smaato">
+    <clobbers target="window.Smaato" />
+  </js-module>
+  
+  <!-- android -->
+  <!-- firefox os -->
+  <!-- ios -->
+  <!-- ubuntu -->
+  
+  <!-- windows8 -->
+  <platform name="windows8">
+    <js-module src="www/windows/Smaato.js" name="Smaato1">
+      <merges target="window.Smaato" />
+      <runs/>
+    </js-module>
+  </platform>
+
+  <!-- windows -->
+  <platform name="windows">
+    <js-module src="www/windows/Smaato.js" name="Smaato1">
+      <merges target="window.Smaato" />
+      <runs/>
+    </js-module>
+  </platform>
+
+
+</plugin>
