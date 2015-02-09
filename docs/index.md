@@ -18,5 +18,5 @@ limitations under the License.
 
 # Smaato Cordova Plugin
 
-Plugin documentation: [doc/index.md](doc/index.md)
+
 
