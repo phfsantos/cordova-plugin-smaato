@@ -3,7 +3,7 @@
 <plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
 	xmlns:android="http://schemas.android.com/apk/res/android"
 	id="cordova-plugin-smaato"
-	version="0.0.1">
+	version="0.1.1">
 
   <name>Smaato Ad</name>
   <description>Cordova/PhoneGap plugin for Smaato, support Banner, Interstitial.</description>
@@ -19,7 +19,7 @@
   </js-module>
 
 
-  <js-module src="www/SmattoSizes.js" name="SmattoSizes">
+  <js-module src="www/SmaatoSizes.js" name="SmaatoSizes">
     <clobbers target="window.SMAATO_AD_SIZE" />
   </js-module>
 
