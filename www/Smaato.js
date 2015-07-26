@@ -287,10 +287,15 @@ Smaato.prototype.requestAd = function (ad) {
 	if (!ad) {
 		return false;
 	}
-	
+	var params = [], key, value, query;
+	for(key in ad)if(ad.hasOwnProperty(key)){
+		value = ad[key];
+		params[params.length] = encodeURIComponent( key ) + "=" + encodeURIComponent( value );
+	}
+	query = params.join( "&" ).replace( /%20/g, "+" );
 	var doneCb = function(){};
     var xhr = new XMLHttpRequest();
-    xhr.open('GET', "http://soma.smaato.net/oapi/reqAd.jsp", true);
+    xhr.open('GET', "http://soma.smaato.net/oapi/reqAd.jsp?" + query, true);
     xhr.onreadystatechange = function() {
         try {
             if (xhr.readyState === 4) {
@@ -362,19 +367,13 @@ Smaato.prototype.requestAd = function (ad) {
             doneCb();
 		}
     }.bind(this);
-	//post data
-    if (ad) {
-        xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
-        xhr.send(JSON.stringify(ad));
-    }
-    else {
-        xhr.send();
-    }
+	
+    xhr.send();
 };
 
-Smaato.prototype.remove = function () {
-	clearTimeout(this.autoReload);
-	this.element.remove();
+Smaato.prototype.remove = function () {	
+    if (this.autoReload) clearTimeout(this.autoReload);
+    if (this.element) this.element.parentNode.removeChild(this.element);
 
 	return this;
 };

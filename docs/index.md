@@ -39,7 +39,7 @@ Compatible with:
 
 ## Quick Start Example Code ##
 
-Step 1: Prepare your MoPub publisher Id for your app, create it in [MoPub website](http://www.mopub.com/)
+Step 1: Prepare your Smaato publisher Id for your app, create it in [Smaato website](http://www.smaato.com/)
 
 ```javascript
 var ad_units = {

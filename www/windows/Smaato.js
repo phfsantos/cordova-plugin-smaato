@@ -32,19 +32,54 @@ function setupWebview() {
 	this.element.appendChild(this.webview);
 };
 
+function params(){
+	var prefix,
+		s = [],
+		add = function( key, value ) {
+			// If value is a function, invoke it and return its value
+			value = typeof value == "function" ? value() : ( value == null ? "" : value );
+			s[ s.length ] = encodeURIComponent( key ) + "=" + encodeURIComponent( value );
+		};
+
+	// If an array was passed in, assume that it is an array of form elements.
+	if ( jQuery.isArray( a ) || ( a.jquery && !jQuery.isPlainObject( a ) ) ) {
+		// Serialize the form elements
+		jQuery.each( a, function() {
+			add( this.name, this.value );
+		});
+
+	} else {
+		// If traditional, encode the "old" way (the way 1.3.2 or older
+		// did it), otherwise encode params recursively.
+		for ( prefix in a ) {
+			buildParams( prefix, a[ prefix ], traditional, add );
+		}
+	}
+
+	// Return the resulting serialization
+	return s.join( "&" ).replace( r20, "+" );
+}
+
 function requestAd(ad) {
 	if (!ad) {
 		return false;
 	}
 	
+	var params = [], key, value, query;
+	for(key in ad)if(ad.hasOwnProperty(key)){
+		value = ad[key];
+		params[params.length] = encodeURIComponent( key ) + "=" + encodeURIComponent( value );
+	}
+	query = params.join( "&" ).replace( /%20/g, "+" );
 	var doneCb = function(){};
     var xhr = new XMLHttpRequest();
-    xhr.open('GET', "http://soma.smaato.net/oapi/reqAd.jsp", true);
+    xhr.open('GET', "http://soma.smaato.net/oapi/reqAd.jsp?" + query, true);
     xhr.onreadystatechange = function() {
         try {
             if (xhr.readyState === 4) {
                 if (xhr.status === 200) {
 					//Success
+					console.log("success");
 				    this.options.SomaUserID = xhr.getResponseHeader("SomaUserID");
 					if (this.options.type !== "video") {
 					    var somaError = xhr.getResponseHeader("SomaError");
@@ -61,7 +96,9 @@ function requestAd(ad) {
 					    }						
 						
 						this.options.SomaUserID = xhr.getResponseHeader("SomaUserID");
-			
+						console.log("response", xhr.response);
+						console.log("responseText", xhr.responseText);
+						console.log("responseBody", xhr.responseBody);
 						this.webview.navigateToString("<!DOCTYPE html><html><head><title>Smaato Ad page</title> <script src='http://code.jquery.com/jquery-2.1.3.min.js'></script><script src='https://raw.githubusercontent.com/aFarkas/html5shiv/master/src/html5shiv.js'></script><style> #adContent>p { padding: 0; margin: 0; }</style></head><body style='overflow:hidden;margin: 0; padding: 0;'><div id='adContent'>" + xhr.responseText + "</div></body></html>");
 					} else {
 						var xml = xhr.responseXML;
@@ -98,7 +135,8 @@ function requestAd(ad) {
 						}
 					}
                 }
-                else {
+                else {					
+					console.log("error", xhr.response);
 					//Error
                 }
             }
@@ -110,14 +148,8 @@ function requestAd(ad) {
             doneCb();
 		}
     }.bind(this);
-	//post data
-    if (ad) {
-        xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
-        xhr.send(JSON.stringify(ad));
-    }
-    else {
-        xhr.send();
-    }
+    
+	xhr.send();
 };
 
 
