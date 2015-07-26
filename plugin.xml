@@ -2,14 +2,14 @@
 
 <plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
 	xmlns:android="http://schemas.android.com/apk/res/android"
-	id="cordova-plugin-smaato"
+	id="com.pherasoft.cordova-plugin-smaato"
 	version="0.4.0">
 
   <name>Smaato Ad</name>
   <description>Cordova/PhoneGap plugin for Smaato, support Banner, Interstitial.</description>
   <author>Pedro Santos</author>
   <license>MIT</license>
-  <keywords>ad,mobfox,rjfun</keywords>
+  <keywords>ad,smaato, ads, advertisement, banner, interstitial</keywords>
   <repo>https://github.com/phfsoftware/cordova-smaato.git</repo>
   <issue>https://github.com/phfsoftware/cordova-smaato/issues</issue>
 
