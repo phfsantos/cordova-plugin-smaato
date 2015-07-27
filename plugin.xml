@@ -32,10 +32,23 @@
   </js-module>
   
   <!-- android -->
+  <platform name="android"></platform>
   <!-- firefox os -->
+  <platform name="firefoxos"></platform>  
+  <!-- amazon os -->
+  <platform name="amazon-fireos"></platform>
+  <!-- Windows Phone 7 -->
+  <platform name="wp7"></platform>
+  <!-- Windows Phone 8 -->
+  <platform name="wp8"></platform>
   <!-- ios -->
-  <!-- ubuntu -->
-  
+  <platform name="ios"></platform>
+  <!-- ubuntu -->  
+  <platform name="ubuntu"></platform>
+  <!-- browser -->  
+  <platform name="browser"></platform>
+  <!-- blackberry10 -->  
+  <platform name="blackberry10"></platform>
   <!-- windows8 -->
   <platform name="windows8">
     <js-module src="www/windows/Smaato.js" name="Smaato1">
