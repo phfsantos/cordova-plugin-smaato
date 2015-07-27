@@ -1,0 +1,36 @@
+{
+    "version": "0.4.0",
+    "name": "com.pherasoft.cordova-plugin-smaato",
+    "cordova_name": "Smaato Ad",
+    "description": "Cordova/PhoneGap plugin for Smaato, support Banner, Interstitial.",
+    "license": "MIT",
+    "repo": "https://github.com/phfsoftware/cordova-smaato.git",
+    "issue": "https://github.com/phfsoftware/cordova-smaato/issues",
+    "keywords": [
+        "ad",
+        "smaato",
+        "ads",
+        "advertisement",
+        "banner",
+        "interstitial"
+    ],
+    "platforms": [
+        "android",
+        "firefoxos",
+        "amazon-fireos",
+        "wp7",
+        "wp8",
+        "ios",
+        "ubuntu",
+        "browser",
+        "blackberry10",
+        "windows8",
+        "windows"
+    ],
+    "engines": [
+        {
+            "name": "cordova",
+            "version": ">=3.0"
+        }
+    ]
+}
