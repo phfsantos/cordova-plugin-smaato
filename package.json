@@ -51,6 +51,6 @@
   "author": "Pedro Santos",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/phfsantos/cordova-plugin-smaato/issues"
+      "url": "https://github.com/phfsantos/cordova-plugin-smaato/issues"
   }
 }
