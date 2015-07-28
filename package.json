@@ -1,6 +1,6 @@
 {
   "name": "cordova-plugin-smaato",
-  "version": "0.4.2",
+  "version": "0.4.3",
   "description": "Cordova/PhoneGap plugin for Smaato, support Banner, Interstitial.",
   "cordova": {
     "id": "com.pherasoft.cordova-plugin-smaato",
@@ -42,15 +42,13 @@
     "cordova-windows8",
     "cordova-windows"
   ],
-  "engines": [
-    {
-      "name": "cordova",
-      "version": ">=3.0"
-    }
-  ],
+  "engines": {
+      "cordova": ">=3.0"
+  },
   "author": "Pedro Santos",
   "license": "MIT",
   "bugs": {
       "url": "https://github.com/phfsantos/cordova-plugin-smaato/issues"
-  }
+  },
+  "homepage": "https://github.com/phfsantos/cordova-plugin-smaato#readme"
 }
