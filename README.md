@@ -17,7 +17,21 @@ Compatible with:
 * Intel XDK and Crosswalk, r1095+
 * IBM Worklight, v6.2+
 
-## How to use? ##
+## Instalation ##
+
+To install this plugin, follow the Command-line Interface Guide. You can use one of the following command lines:
+```
+cordova plugin add com.pherasoft.cordova-plugin-smaato
+cordova plugin add https://github.com/phfsantos/cordova-plugin-smaato.git
+```
+If use with Intel XDK:
+Project -> CORDOVA 3.X HYBRID MOBILE APP SETTINGS -> PLUGINS AND PERMISSIONS -> Third-Party Plugins ->
+Add a Third-Party Plugin -> Get Plugin from the Web, input:
+```
+Name: Smaato Ads
+Plugin ID: com.pherasoft.cordova-plugin-smaato
+[x] Plugin is located in the Apache Cordova Plugins Registry
+```
 
 ## Quick Start Example Code ##
 
