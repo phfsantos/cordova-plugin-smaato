@@ -3,7 +3,7 @@
 <plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
 	xmlns:android="http://schemas.android.com/apk/res/android"
 	id="com.pherasoft.cordova-plugin-smaato"
-	version="0.4.4">
+	version="0.5.0">
 
   <name>Smaato Ads</name>
   <description>Cordova/PhoneGap plugin for Smaato, support Banner, Interstitial.</description>
@@ -32,7 +32,15 @@
   </js-module>
   
   <!-- android -->
-  <platform name="android"></platform>
+  <platform name="android">
+    <config-file target="res/xml/config.xml" parent="/*">
+      <feature name="Smaato" >
+        <param name="android-package" value="org.apache.cordova.smaato.Smaato"/>
+      </feature>
+    </config-file>
+
+    <source-file src="src/android/Smaato.java" target-dir="src/org/apache/cordova/smaato" />
+  </platform>
   <!-- firefox os -->
   <platform name="firefoxos"></platform>  
   <!-- amazon os -->

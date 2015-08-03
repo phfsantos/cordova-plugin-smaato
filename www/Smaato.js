@@ -27,7 +27,7 @@ var Smaato = function (element, options) {
 	}
 
 	this.element = element;
-
+	
 	//creates webview
 	this.setupWebview();
 
@@ -41,7 +41,21 @@ var Smaato = function (element, options) {
 	this.setSize().setPosition().reload();
 	this.errorReloads = 0;
 
+	exec(this.setAdID, this.setAdID, "Smaato", "getAdInfo", []);
+	
 	return this;
+};
+
+Smaato.prototype.setAdID = function (deviceAdInfo) {
+	if(typeof deviceAdInfo == "object" && deviceAdInfo.googleadid){
+		this.options.googleadid = deviceAdInfo.googleadid;
+	 	this.options.googlednt = deviceAdInfo.isLimitAdTrackingEnabled;
+	}
+	
+	if(typeof deviceAdInfo == "object" && deviceAdInfo.iosadid){
+		this.options.iosadid = deviceAdInfo.iosadid;
+	 	this.options.iosadtracking = deviceAdInfo.iosadtracking;
+	}
 };
 
 Smaato.prototype.setupWebview = function () {
@@ -290,7 +304,9 @@ Smaato.prototype.requestAd = function (ad) {
 	var params = [], key, value, query;
 	for(key in ad)if(ad.hasOwnProperty(key)){
 		value = ad[key];
-		params[params.length] = encodeURIComponent( key ) + "=" + encodeURIComponent( value );
+        if (typeof value != "undefined" && value != "undefined" && value != "") {
+            params[params.length] = encodeURIComponent(key) + "=" + encodeURIComponent(value);
+        }
 	}
 	query = params.join( "&" ).replace( /%20/g, "+" );
 	var doneCb = function(){};
