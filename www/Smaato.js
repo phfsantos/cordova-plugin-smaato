@@ -297,6 +297,7 @@ Smaato.prototype.reload = function () {
 };
 
 
+
 Smaato.prototype.requestAd = function (ad) {
 	if (!ad) {
 		return false;
@@ -334,7 +335,7 @@ Smaato.prototype.requestAd = function (ad) {
 			
 						this.options.SomaUserID = xhr.getResponseHeader("SomaUserID");
 			
-						this.iframe.setAttribute("srcdoc", "<!DOCTYPE html><html><head><title>Smaato Ad page</title> <script src='http://code.jquery.com/jquery-2.1.3.min.js'></script><script src='https://raw.githubusercontent.com/aFarkas/html5shiv/master/src/html5shiv.js'></script><style> #adContent>p { padding: 0; margin: 0; }</style></head><body style='overflow:hidden;margin: 0; padding: 0;'><div id='adContent'>" + xhr.responseText + "</div></body></html>");
+						this.updateView("<!DOCTYPE html><html><head><title>Smaato Ad page</title> <script src='http://code.jquery.com/jquery-2.1.3.min.js'></script><script src='https://raw.githubusercontent.com/aFarkas/html5shiv/master/src/html5shiv.js'></script><style> #adContent>p { padding: 0; margin: 0; }</style></head><body style='overflow:hidden;margin: 0; padding: 0;'><div id='adContent'>" + xhr.responseText + "</div></body></html>");
 					} else {
 						var xml = xhr.responseXML;
 						var errors = xml.getElementsByTagName("error");
@@ -366,8 +367,8 @@ Smaato.prototype.requestAd = function (ad) {
 									content += "<img src='" + beacon.textContent + "' width='1' height='1' />";
 						        }			
 							}
-							this.iframe.setAttribute("srcdoc", "<!DOCTYPE html><html><head><title>Smaato Ad page</title> <script src='http://code.jquery.com/jquery-2.1.3.min.js'></script><script src='https://raw.githubusercontent.com/aFarkas/html5shiv/master/src/html5shiv.js'></script><style> #adContent>p { padding: 0; margin: 0; }</style></head><body style='overflow:hidden;margin: 0; padding: 0;'><div id='adContent'>" + content + "</div></body></html>");
-						    return true;
+							this.updateView("<!DOCTYPE html><html><head><title>Smaato Ad page</title> <script src='http://code.jquery.com/jquery-2.1.3.min.js'></script><script src='https://raw.githubusercontent.com/aFarkas/html5shiv/master/src/html5shiv.js'></script><style> #adContent>p { padding: 0; margin: 0; }</style></head><body style='overflow:hidden;margin: 0; padding: 0;'><div id='adContent'>" + content + "</div></body></html>");
+							return true;
 						}
 					}
                 }
@@ -385,6 +386,10 @@ Smaato.prototype.requestAd = function (ad) {
     }.bind(this);
 	
     xhr.send();
+};
+
+Smaato.prototype.updateView = function(html){
+	this.iframe.setAttribute("srcdoc", html);						    
 };
 
 Smaato.prototype.remove = function () {	
