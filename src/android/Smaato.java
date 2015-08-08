@@ -28,10 +28,14 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import android.provider.Settings;
-import com.google.android.gms.ads.identifier;
+import com.google.android.gms.ads.identifier.AdvertisingIdClient;
+import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
+import com.google.android.gms.common.GooglePlayServicesRepairableException;
+import java.io.IOException;
 
 public class Smaato extends CordovaPlugin {
+    public static final String TAG = "Smaato";
+
     private static final String ANDROID_PLATFORM = "Android";
     private static final String AMAZON_PLATFORM = "amazon-fireos";
     private static final String AMAZON_DEVICE = "Amazon";
@@ -62,11 +66,9 @@ public class Smaato extends CordovaPlugin {
      * @return                  True if the action was valid, false if not.
      */
     public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
-        if (action.equals("getAdInfo")) {
-            JSONObject r = new JSONObject();
-			r.put("googleadid", this.getAdId());
-            r.put("isLimitAdTrackingEnabled", this.getIsLimitAdTrackingEnabled());
-            callbackContext.success(this.getAdId());
+        if (action.equals("getAdInfo")) {       		
+		    JSONObject adInfo = this.getAdInfo();  
+            callbackContext.success(adInfo);
         }
         else {
             return false;
@@ -79,18 +81,29 @@ public class Smaato extends CordovaPlugin {
     //--------------------------------------------------------------------------
 
 	/**
-	 * Get advertiser id
+	 * Get advertiser info from google play store
 	 *
 	 * @return 
 	 */
 	 
-	 public String getAdId() {
-        String adId = AdvertisingIdClient.Info.getAdvertisingIdInfo(this.cordova.getActivity()).getId();
-        return adId;
-     }
-	 
-	 public boolean getIsLimitAdTrackingEnabled() {
-        boolean isLimitAdTrackingEnabled = AdvertisingIdClient.Info.getAdvertisingIdInfo(this.cordova.getActivity()).isLimitAdTrackingEnabled();
-        return isLimitAdTrackingEnabled;
+	 public JSONObject getAdInfo() {
+		AdvertisingIdClient.Info adInfo;
+		JSONObject r = new JSONObject();
+		try {
+			adInfo = AdvertisingIdClient.getAdvertisingIdInfo(this.cordova.getActivity());
+			r.put("googleadid", adInfo.getId());
+            r.put("isLimitAdTrackingEnabled", adInfo.isLimitAdTrackingEnabled());
+        }  catch (IllegalStateException e) {
+            e.printStackTrace();
+        } catch (GooglePlayServicesRepairableException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (GooglePlayServicesNotAvailableException e) {
+            e.printStackTrace();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return r;
      }
 }
