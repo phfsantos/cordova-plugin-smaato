@@ -140,66 +140,66 @@ Smaato.prototype.setSize = function () {
     this.options.dimensionstrict = false;
     switch (this.options.adSize) {
         case SMAATO_AD_SIZE.TINY_BANNER: // Phones 120 x 20
-            width = 120 + "px";
-            height = 20 + "px";
+            this.width = 120;
+            this.height = 20;
             break;
         case SMAATO_AD_SIZE.PUNY_BANNER: // Phones 168 x 28
-            width = 168 + "px";
-            height = 28 + "px";
+            this.width = 168;
+            this.height = 28;
             break;
         case SMAATO_AD_SIZE.LITTLE_BANNER: // Phones 216 x 36
-            width = 216 + "px";
-            height = 36 + "px";
+            this.width = 216;
+            this.height = 36;
             break;
         case SMAATO_AD_SIZE.SMALL_BANNER: // Phones and Tablets 300 x 50
-            width = 300 + "px";
-            height = 50 + "px";
+            this.width = 300;
+            this.height = 50;
             break;
         case SMAATO_AD_SIZE.BANNER:
-            width = 320 + "px";
-            height = 50 + "px";
+            this.width = 320;
+            this.height = 50;
             break;
         case SMAATO_AD_SIZE.MEDIUM_RECTANGLE:
-            width = 300 + "px";
-            height = 250 + "px";
+            this.width = 300;
+            this.height = 250;
             this.options.dimension = "medrect";
             this.options.dimensionstrict = true;
             break;
         case SMAATO_AD_SIZE.LEADERBOARD:
-            width = 728 + "px";
-            height = 90 + "px";
+            this.width = 728;
+            this.height = 90;
             this.options.dimension = "leader";
             this.options.dimensionstrict = true;
             break;
         case SMAATO_AD_SIZE.SKYSCRAPER:
-            width = 120 + "px";
-            height = 600 + "px";
+            this.width = 120;
+            this.height = 600;
             this.options.dimension = "sky";
             this.options.dimensionstrict = true;
             break;
         case SMAATO_AD_SIZE.INTERSTITIAL:
             var windowHeight = "innerHeight" in window ? window.innerHeight : document.documentElement.offsetHeight;
             if (windowHeight < 1025) {
-                width = 320 + "px";
-                height = 480 + "px";
+                this.width = 320;
+                this.height = 480;
                 this.options.dimension = "full_320x480";
             } else {
-                width = 768 + "px";
-                height = 1024 + "px";
+                this.width = 768;
+                this.height = 1024;
                 this.options.dimension = "full_768x1024";
             }
             //this.options.type = "video";
             this.options.dimensionstrict = true;
             break;
         default:
-            width = this.options.width + "px";
-            height = this.options.height + "px";
+            this.width = this.options.width;
+            this.height = this.options.height;
             this.options.dimensionstrict = false;
             break;
     }
 
-    this.element.style.height = height;
-    this.element.style.width = width;
+    this.element.style.height = this.height + "px";
+    this.element.style.width = this.width + "px";
 
     return this;
 };
@@ -221,8 +221,8 @@ Smaato.prototype.setPosition = function () {
             right = 0;
             break;
         case SMAATO_AD_POSITION.CENTER:
-            top = (windowHeight - this.element.offsetHeight) / 2;
-            left = (windowWidth - this.element.offsetWidth) / 2;
+            top = (windowHeight - this.height) / 2;
+            left = (windowWidth - this.width) / 2;
             break;
         case SMAATO_AD_POSITION.BOTTOM_LEFT:
             bottom = 0;
@@ -234,7 +234,7 @@ Smaato.prototype.setPosition = function () {
             break;
         case SMAATO_AD_POSITION.BOTTOM_CENTER:
             bottom = 0;
-            left = (windowWidth - this.element.offsetWidth) / 2;
+            left = (windowWidth - this.width) / 2;
             break;
         case SMAATO_AD_POSITION.TOP_CENTER:
             top = 0;
@@ -432,7 +432,9 @@ Smaato.prototype.handleNative = function (url) {
                     var errors = xml.getElementsByTagName("error");
                     if (errors.length && errors[0].textContent) {
                         console.log("success but no native ads: ", errors[0].textContent);
-                        this.reload();
+                        if (this.options.SomaUserID === undefined && (++this.errorReloads <= 100)) {
+                            this.reload();
+                        }
                         return false;
                     }
 
@@ -443,13 +445,13 @@ Smaato.prototype.handleNative = function (url) {
                     var links = xml.getElementsByTagName("clickurl");
                     var link = links.length ? links[0] : undefined;
                     if (link) {
-                        var = linkStyle = "";
+                        var linkStyle = "";
                         var mainimages = xml.getElementsByTagName("mainimage");
                         var mainimage = mainimages.length ? mainimages[0] : undefined;
                         if(mainimage){
-                            style = "background-image: url("+ (mainimage.textContent ? mainimage.textContent : "") +");background-size: contain;"
+                            linkStyle = "background-image: url(" + (mainimage.textContent ? mainimage.textContent : "") + ");background-size: contain;"
                         }
-                        content += "<a target='_blank' style='float:left;"+ style +"' href='" + (link.textContent ? link.textContent : "") + "'>";
+                        content += "<a target='_blank' style='float:left;" + linkStyle + "' href='" + (link.textContent ? link.textContent : "") + "'>";
                     }
 
                     var iconimages = xml.getElementsByTagName("iconimage");
@@ -612,7 +614,7 @@ Smaato.prototype.showAtXY = function (x, y) {
     if (typeof y === 'undefined') y = 0;
     this.options.x = x;
     this.options.y = y;
-    this._setPosition();
+    this.setPosition();
 
     return this;
 };
