@@ -360,18 +360,14 @@
                     } else {
                         this.totalCalls++;
                     }
-                    console.log("in get");
                     if (this.cappingFreeLunch >= this.totalCalls) {
                         cb(null);
-                        console.log("done freelunch");
                         return;
                     }
                     if (now - this.lastSuccessfullAd < this.cappingMinimumTimeInterval) {
                         cb(null);
-                        console.log("done lastsuccess");
                         return;
                     }
-                    console.log("VASTParser.parse", url);
                     return VASTParser.parse(url, options, (function (_this) {
                         return function (response) {
                             return cb(response);
@@ -610,16 +606,12 @@
                     parentURLs.push(url);
                     return URLHandler.get(url, options, (function (_this) {
                         return function (err, xml) {
-                            console.log("err", err);
-                            console.log("xml", xml);
                             var ad, complete, loopIndex, node, response, _j, _k, _len1, _len2, _ref, _ref1;
                             if (err != null) {
                                 return cb(err);
                             }
                             response = new VASTResponse();
                             if (!(((xml != null ? xml.documentElement : void 0) != null) && xml.documentElement.nodeName === "VAST")) {
-                                //console.log("xml.documentElement", xml.documentElement);
-                                //console.log("xml.documentElement.nodeName", xml.documentElement.nodeName);
                                 return cb();
                             }
                             _ref = xml.documentElement.childNodes;
@@ -1285,16 +1277,11 @@
                         }
                         options = {};
                     }
-                    console.log("in url handler");
                     if (options.urlhandler && options.urlhandler.supported()) {
-                        console.log("in url handler supported");
                         return options.urlhandler.get(url, options, cb);
                     } else if (typeof window === "undefined" || window === null) {
-                        console.log("in window success");
                         return _dereq_('./urlhandlers/' + 'node.coffee').get(url, options, cb);
                     } else if (xhr.supported()) {
-
-                        console.log("in xhr success")
                         return xhr.get(url, options, cb);
                     } else if (flash.supported()) {
                         return flash.get(url, options, cb);
@@ -1370,17 +1357,13 @@
                 XHRURLHandler.get = function (url, options, cb) {
                     var xhr;
                     try {
-                        console.log("using xhr.open('get','"+url+"')");
                         xhr = this.xhr();
                         xhr.open('GET', url);
                         xhr.timeout = options.timeout || 0;
                         xhr.withCredentials = options.withCredentials || false;
                         xhr.send();
                         return xhr.onreadystatechange = function () {
-                            console.log("readyState", xhr.readyState);
                             if (xhr.readyState === 4) {
-
-                                console.log("readyState 4", xhr);
                                 return cb(null, xhr.responseXML);
                             }
                         };
