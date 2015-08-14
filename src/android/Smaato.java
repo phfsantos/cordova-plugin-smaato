@@ -66,12 +66,9 @@ public class Smaato extends CordovaPlugin {
      * @return                  True if the action was valid, false if not.
      */
     public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
-        if (action.equals("getAdInfo")) {            
-		    AdvertisingIdClient.Info adInfo = this.getAdInfo();
-            JSONObject r = new JSONObject();
-			r.put("googleadid", adInfo.getId());
-            r.put("isLimitAdTrackingEnabled", adInfo.isLimitAdTrackingEnabled());
-            callbackContext.success(r);
+        if (action.equals("getAdInfo")) {       		
+		    JSONObject adInfo = this.getAdInfo();  
+            callbackContext.success(adInfo);
         }
         else {
             return false;
@@ -89,11 +86,13 @@ public class Smaato extends CordovaPlugin {
 	 * @return 
 	 */
 	 
-	 public AdvertisingIdClient getAdInfo() {
+	 public JSONObject getAdInfo() {
 		AdvertisingIdClient.Info adInfo;
-		String adId = "";
+		JSONObject r = new JSONObject();
 		try {
 			adInfo = AdvertisingIdClient.getAdvertisingIdInfo(this.cordova.getActivity());
+			r.put("googleadid", adInfo.getId());
+            r.put("isLimitAdTrackingEnabled", adInfo.isLimitAdTrackingEnabled());
         }  catch (IllegalStateException e) {
             e.printStackTrace();
         } catch (GooglePlayServicesRepairableException e) {
@@ -102,7 +101,9 @@ public class Smaato extends CordovaPlugin {
             e.printStackTrace();
         } catch (GooglePlayServicesNotAvailableException e) {
             e.printStackTrace();
+        } catch (JSONException e) {
+            e.printStackTrace();
         }
-        return adInfo;
+        return r;
      }
 }
