@@ -328,6 +328,7 @@ Smaato.prototype.handleVast = function (url) {
         this.webview.parentNode.removeChild(this.webview);
         this.webview = undefined;
     }
+    this.element.innerHTML = "";
     var player = document.createElement("video");
     this.element.appendChild(player);
 
@@ -351,13 +352,20 @@ Smaato.prototype.handleVast = function (url) {
                                 player.vastTracker.on('clickthrough', function (url) {
                                     document.location.href = url;
                                 });
-                                player.on('canplay', function () { this.vastTracker.load(); });
-                                player.on('timeupdate', function () { this.vastTracker.setProgress(this.currentTime); });
-                                player.on('play', function () { this.vastTracker.setPaused(false); });
-                                player.on('pause', function () { this.vastTracker.setPaused(true); });
+                                player.addEventListener('canplaythrough', function () {
+                                    player.vastTracker.load();
+                                    player.play();
+                                });
+                                player.addEventListener('timeupdate', function () { player.vastTracker.setProgress(player.currentTime); });
+                                player.addEventListener('play', function () { player.vastTracker.setPaused(false); });
+                                player.addEventListener('pause', function () { player.vastTracker.setPaused(true); });
+                                player.addEventListener('ended', this.remove.bind(this));
 
-                                player.href = mediaFile.fileURL;
+                                player.src = mediaFile.fileURL;
+                                player.width = this.width;
+                                player.height = this.height;
                                 // put player in ad mode
+                                player.load();
                             }
                             break;
 
@@ -409,7 +417,7 @@ Smaato.prototype.handleVast = function (url) {
 
         if (!player.vastTracker) {
             // No pre-roll, start video
-            if (player) player.parentNode.removeChild(player);
+            if (player && player.parentNode) player.parentNode.removeChild(player);
             if (++this.errorReloads <= 100) {
                 this.reload();
             }
@@ -445,13 +453,8 @@ Smaato.prototype.handleNative = function (url) {
                     var links = xml.getElementsByTagName("clickurl");
                     var link = links.length ? links[0] : undefined;
                     if (link) {
-                        var linkStyle = "";
-                        var mainimages = xml.getElementsByTagName("mainimage");
-                        var mainimage = mainimages.length ? mainimages[0] : undefined;
-                        if(mainimage){
-                            linkStyle = "background-image: url(" + (mainimage.textContent ? mainimage.textContent : "") + ");background-size: contain;"
-                        }
-                        content += "<a target='_blank' style='float:left;" + linkStyle + "' href='" + (link.textContent ? link.textContent : "") + "'>";
+                        
+                        content += "<a target='_blank' style='float:left; color: black; padding: 8px;' href='" + (link.textContent ? link.textContent : "") + "'>";
                     }
 
                     var iconimages = xml.getElementsByTagName("iconimage");
@@ -463,23 +466,36 @@ Smaato.prototype.handleNative = function (url) {
                     var adtitles = xml.getElementsByTagName("adtitle");
                     var adtitle = adtitles.length ? adtitles[0] : undefined;
                     if (adtitle) {
-                        content += "<h1  style='float:left; margin: 6px;'>" + (adtitle.textContent ? adtitle.textContent : "") + "'<h1/>";
+                        content += "<h3  style='float:left; margin: 6px;'>" + (adtitle.textContent ? adtitle.textContent : "") + "</h3>";
+                    }
+                    
+                    //main Image
+                    var mainimages = xml.getElementsByTagName("iconimage");
+                    var mainimage = mainimages.length ? mainimages[0] : undefined;
+                    //learn more button
+                    var ctatexts = xml.getElementsByTagName("ctatext");
+                    var ctatext = ctatexts.length ? ctatexts[0] : undefined;
+                    if (ctatext && !mainimage) {
+                        content += "<button style='float:right; margin: 6px 10px 0 0; cursor: pointer; padding: 5px; background-color: skyblue;'>" + (ctatext.textContent ? ctatext.textContent : "") + "'</button>";
                     }
 
                     var adtexts = xml.getElementsByTagName("adtext");
                     var adtext = adtexts.length ? adtexts[0] : undefined;
                     if (adtext) {
-                        content += "<p  style='float:left; margin: 6px;'>" + (adtext.textContent ? adtext.textContent : "") + "'<p/>";
+                        content += "<p  style='float:left; margin: 6px;'>" + (adtext.textContent ? adtext.textContent : "") + "'</p>";
                     }
+
                     var starratings = xml.getElementsByTagName("starrating");
                     var starrating = starratings.length ? starratings[0] : undefined;
                     if (starrating) {
-                        content += "<span style='float:left; margin: 6px;'>Ratting: " + (starrating.textContent ? starrating.textContent : "") + "'<span/>";
+                        content += "<span style='float:left; margin: 6px;'>Ratting: " + (starrating.textContent ? starrating.textContent : "") + "</span>";
                     }
-                    var ctatexts = xml.getElementsByTagName("ctatext");
-                    var ctatext = ctatexts.length ? ctatexts[0] : undefined;
-                    if (ctatext) {
-                        content += "<span style='float:right; margin: 6px;'>Ratting: " + (ctatext.textContent ? ctatext.textContent : "") + "'<span/>";
+
+                    if (mainimage) {
+                        content += "<img  style='float:left; width: 100%;' src='" + (mainimage.textContent ? mainimage.textContent : "") + "'/>";
+                        if (ctatext) {
+                            content += "<button style='float:left; padding: 5px; cursor: pointer; width: 100%; background-color: skyblue;'>" + (ctatext.textContent ? ctatext.textContent : "") + "</button>";
+                        }
                     }
 
                     if (link) {
@@ -537,7 +553,7 @@ Smaato.prototype.handleAll = function (url) {
 
                     this.options.SomaUserID = xhr.getResponseHeader("SomaUserID");
 
-                    this.updateView("<!DOCTYPE html><html><head><title>Smaato Ad page</title> <script src='http://code.jquery.com/jquery-2.1.3.min.js'></script><script src='https://raw.githubusercontent.com/aFarkas/html5shiv/master/src/html5shiv.js'></script><style> #adContent>p { padding: 0; margin: 0; }</style></head><body style='overflow:hidden;margin: 0; padding: 0;'><div id='adContent'>" + xhr.responseText + "</div></body></html>");
+                    this.updateView("<!DOCTYPE html><html><head><title>Smaato Ad page</title> <script src='https://code.jquery.com/jquery-2.1.3.min.js'></script><style> #adContent>p { padding: 0; margin: 0; }</style></head><body style='overflow:hidden;margin: 0; padding: 0;'><div id='adContent'>" + xhr.responseText + "</div></body></html>");
                 }
                 else {
                     //Error
@@ -561,7 +577,7 @@ Smaato.prototype.updateView = function (html) {
 
 Smaato.prototype.remove = function () {
     if (this.autoReload) clearTimeout(this.autoReload);
-    if (this.element) this.element.parentNode.removeChild(this.element);
+    if (this.element && this.element.parentNode) this.element.parentNode.removeChild(this.element);
 
     return this;
 };

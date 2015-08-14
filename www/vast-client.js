@@ -374,7 +374,6 @@
                     console.log("VASTParser.parse", url);
                     return VASTParser.parse(url, options, (function (_this) {
                         return function (response) {
-                            console
                             return cb(response);
                         };
                     })(this));
@@ -619,8 +618,8 @@
                             }
                             response = new VASTResponse();
                             if (!(((xml != null ? xml.documentElement : void 0) != null) && xml.documentElement.nodeName === "VAST")) {
-                                console.log("xml.documentElement", xml.documentElement);
-                                console.log("xml.documentElement.nodeName", xml.documentElement.nodeName);
+                                //console.log("xml.documentElement", xml.documentElement);
+                                //console.log("xml.documentElement.nodeName", xml.documentElement.nodeName);
                                 return cb();
                             }
                             _ref = xml.documentElement.childNodes;
@@ -1371,13 +1370,17 @@
                 XHRURLHandler.get = function (url, options, cb) {
                     var xhr;
                     try {
+                        console.log("using xhr.open('get','"+url+"')");
                         xhr = this.xhr();
                         xhr.open('GET', url);
                         xhr.timeout = options.timeout || 0;
                         xhr.withCredentials = options.withCredentials || false;
                         xhr.send();
                         return xhr.onreadystatechange = function () {
+                            console.log("readyState", xhr.readyState);
                             if (xhr.readyState === 4) {
+
+                                console.log("readyState 4", xhr);
                                 return cb(null, xhr.responseXML);
                             }
                         };
