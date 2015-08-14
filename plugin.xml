@@ -2,8 +2,8 @@
 
 <plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
 	xmlns:android="http://schemas.android.com/apk/res/android"
-	id="com.pherasoft.cordova-plugin-smaato"
-	version="0.4.4">
+	id="cordova-plugin-smaato"
+	version="0.5.0">
 
   <name>Smaato Ads</name>
   <description>Cordova/PhoneGap plugin for Smaato, support Banner, Interstitial.</description>
@@ -13,11 +13,9 @@
   <repo>https://github.com/phfsoftware/cordova-smaato.git</repo>
   <issue>https://github.com/phfsoftware/cordova-smaato/issues</issue>
 
-
   <js-module src="www/SmaatoPositions.js" name="SmaatoPositions">
     <clobbers target="window.SMAATO_AD_POSITION" />
   </js-module>
-
 
   <js-module src="www/SmaatoSizes.js" name="SmaatoSizes">
     <clobbers target="window.SMAATO_AD_SIZE" />
@@ -27,14 +25,32 @@
     <engine name="cordova" version=">=3.0" />
   </engines>
 
+  <js-module src="www/vast-client.js" name="DMVAST"></js-module>
+
   <js-module src="www/Smaato.js" name="Smaato">
     <clobbers target="window.Smaato" />
   </js-module>
-  
+
   <!-- android -->
-  <platform name="android"></platform>
+  <platform name="android">
+    <!-- cordova registry, for cordova/plugman CLI, Intel XDK -->
+    <dependency id="com.google.playservices@19.0.0" />
+
+    <config-file target="AndroidManifest.xml" parent="/*">
+      <uses-permission android:name="android.permission.INTERNET" />
+      <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    </config-file>
+
+    <config-file target="res/xml/config.xml" parent="/*">
+      <feature name="Smaato">
+        <param name="android-package" value="org.apache.cordova.smaato.Smaato" />
+      </feature>
+    </config-file>
+
+    <source-file src="src/android/Smaato.java" target-dir="src/org/apache/cordova/smaato" />
+  </platform>
   <!-- firefox os -->
-  <platform name="firefoxos"></platform>  
+  <platform name="firefoxos"></platform>
   <!-- amazon os -->
   <platform name="amazon-fireos"></platform>
   <!-- Windows Phone 7 -->
@@ -42,18 +58,27 @@
   <!-- Windows Phone 8 -->
   <platform name="wp8"></platform>
   <!-- ios -->
-  <platform name="ios"></platform>
-  <!-- ubuntu -->  
+  <platform name="ios">
+    <config-file target="config.xml" parent="/*">
+      <feature name="Smaato">
+        <param name="ios-package" value="CDVSmaato" />
+      </feature>
+    </config-file>
+
+    <header-file src="src/ios/CDVSmaato.h" />
+    <source-file src="src/ios/CDVSmaato.m" />
+  </platform>
+  <!-- ubuntu -->
   <platform name="ubuntu"></platform>
-  <!-- browser -->  
+  <!-- browser -->
   <platform name="browser"></platform>
-  <!-- blackberry10 -->  
+  <!-- blackberry10 -->
   <platform name="blackberry10"></platform>
   <!-- windows8 -->
   <platform name="windows8">
     <js-module src="www/windows/Smaato.js" name="Smaato1">
       <merges target="window.Smaato" />
-      <runs/>
+      <runs />
     </js-module>
   </platform>
 
@@ -61,9 +86,7 @@
   <platform name="windows">
     <js-module src="www/windows/Smaato.js" name="Smaato1">
       <merges target="window.Smaato" />
-      <runs/>
+      <runs />
     </js-module>
   </platform>
-
-
 </plugin>
