@@ -20,10 +20,10 @@
 #include <sys/types.h>
 #include <sys/sysctl.h>
 #import <Cordova/CDV.h>
-@import AdSupport;
+#import <AdSupport/AdSupport.h>
 #import "CDVSmaato.h"
 
-@implementation CDVSmatto
+@implementation CDVSmaato
 
 - (void)getAdInfo:(CDVInvokedUrlCommand*)command
 {
@@ -38,7 +38,7 @@
     NSMutableDictionary* devProps = [NSMutableDictionary dictionaryWithCapacity:2];
 
     [devProps setObject:[[[ASIdentifierManager sharedManager] advertisingIdentifier] UUIDString] forKey:@"iosadid"];
-    [devProps setObject:[[[ASIdentifierManager sharedManager] advertisingTrackingEnabled] Bool] forKey:@"iosadtracking"];
+    [devProps setObject:[NSNumber numberWithBool:[[ASIdentifierManager sharedManager] isAdvertisingTrackingEnabled]] forKey:@"iosadtracking"];
 
     NSDictionary* devReturn = [NSDictionary dictionaryWithDictionary:devProps];
     return devReturn;
