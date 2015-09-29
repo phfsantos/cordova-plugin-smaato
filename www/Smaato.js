@@ -48,6 +48,7 @@ var Smaato = function (element, options) {
 };
 
 Smaato.prototype.setAdID = function (deviceAdInfo) {
+    if (!this.element) return this;
     if (typeof deviceAdInfo == "object" && deviceAdInfo.googleadid) {
         this.options.googleadid = deviceAdInfo.googleadid;
         this.options.googlednt = deviceAdInfo.isLimitAdTrackingEnabled;
@@ -64,6 +65,7 @@ Smaato.prototype.setAdIDError = function () {
 };
 
 Smaato.prototype.setupWebview = function () {
+    if (!this.element) return this;
     this.iframe = document.createElement("iframe");
 
     this.iframe.setAttribute("sandbox", "allow-scripts allow-popups allow-forms allow-top-navigation");
@@ -86,6 +88,7 @@ Smaato.prototype.setupWebview = function () {
  */
 
 Smaato.prototype.setOptions = function (userOptions) {
+    if (!this.element) return this;
     //assign defaults for arguments
     userOptions = userOptions || {};
 
@@ -95,31 +98,31 @@ Smaato.prototype.setOptions = function (userOptions) {
         SomaUserID: this.options.SomaUserID,
         dimension: this.options.dimension,
         dimensionstrict: this.options.dimensionstrict,
-        // Options name     |   New Value               |   previous value              |   Default Value   |   Description
-        publisherId: userOptions.publisherId || this.options.publisherId || "",              // smaato ad publisherId
-        adId: userOptions.adId || this.options.adId || "",              // smaato ad id
-        type: userOptions.type || this.options.type || "all",           // all(img, text, richmedia), img, text, richmedia, vast, native
-        closeButton: userOptions.closeButton || this.options.closeButton || false,           // if set to true, will show a close button
-        overlay: userOptions.overlay || this.options.overlay || false,           // if set to true, will show an overlay the under ad
-        autoShow: userOptions.autoShow || this.options.autoShow || true,            // if set to true, no need call show
-        autoReload: userOptions.autoReload || this.options.autoReload || false,           // if set to true, no need to call reload
-        position: userOptions.position || this.options.position || 8,               // default position
-        adSize: userOptions.adSize || this.options.adSize || "LEADERBOARD",   // ad size
-        width: userOptions.width || this.options.width || 728,             // banner width, if set adSize to 'CUSTOM'
-        height: userOptions.height || this.options.height || 90,              // banner height, if set adSize to 'CUSTOM'
-        x: userOptions.x || this.options.x || 0,               // default X of banner
-        y: userOptions.y || this.options.y || 0,               // default Y of banner
-        isTesting: userOptions.isTesting || this.options.isTesting || false,           // if set to true, to receive test ads
-        session: userOptions.session || this.options.session || "",              // session for ads on this device
-        childDirected: userOptions.childDirected || this.options.childDirected || false,           // if set to true, ads are safe for children
-        gps: userOptions.gps || this.options.gps || undefined,       // GPS coordinates of the user`s location.
-        iosadid: userOptions.iosadid || this.options.iosadid || undefined,       // IOS ad id.
-        iosadtracking: userOptions.iosadtracking || this.options.iosadtracking || true,            // IOS ad tracking.
-        googleadid: userOptions.googleadid || this.options.googleadid || undefined,       // Google ad id.
-        googlednt: userOptions.googlednt || this.options.googlednt || false,           // Google ad tracking.
-        onerror: userOptions.onerror || this.options.onerror || function () { }, // Function to call when an error occurs
-        onadloaded: userOptions.onadloaded || this.options.onadloaded || function () { }, // Function to call when ad loads
-        onadclosed: userOptions.onadclosed || this.options.onadclosed || undefined        // Function to call when close button gets clicked
+        // Options name     |   New Value                   |  previous value               |   Default Value   |   Description
+        publisherId:            userOptions.publisherId     || this.options.publisherId     || "",              // smaato ad publisherId
+        adId:                   userOptions.adId            || this.options.adId            || "",              // smaato ad id
+        type:                   userOptions.type            || this.options.type            || "all",           // all(img, text, richmedia), img, text, richmedia, vast, native
+        closeButton:            userOptions.closeButton     || this.options.closeButton     || false,           // if set to true, will show a close button
+        overlay:                userOptions.overlay         || this.options.overlay         || false,           // if set to true, will show an overlay the under ad
+        autoShow:               userOptions.autoShow        || this.options.autoShow        || true,            // if set to true, no need call show
+        autoReload:             userOptions.autoReload      || this.options.autoReload      || false,           // if set to true, no need to call reload
+        position:               userOptions.position        || this.options.position        || 8,               // default position
+        adSize:                 userOptions.adSize          || this.options.adSize          || "LEADERBOARD",   // ad size
+        width:                  userOptions.width           || this.options.width           || 728,             // banner width, if set adSize to 'CUSTOM'
+        height:                 userOptions.height          || this.options.height          || 90,              // banner height, if set adSize to 'CUSTOM'
+        x:                      userOptions.x               || this.options.x               || 0,               // default X of banner
+        y:                      userOptions.y               || this.options.y               || 0,               // default Y of banner
+        isTesting:              userOptions.isTesting       || this.options.isTesting       || false,           // if set to true, to receive test ads
+        session:                userOptions.session         || this.options.session         || "",              // session for ads on this device
+        childDirected:          userOptions.childDirected   || this.options.childDirected   || false,           // if set to true, ads are safe for children
+        gps:                    userOptions.gps             || this.options.gps             || undefined,       // GPS coordinates of the user`s location.
+        iosadid:                userOptions.iosadid         || this.options.iosadid         || undefined,       // IOS ad id.
+        iosadtracking:          userOptions.iosadtracking   || this.options.iosadtracking   || true,            // IOS ad tracking.
+        googleadid:             userOptions.googleadid      || this.options.googleadid      || undefined,       // Google ad id.
+        googlednt:              userOptions.googlednt       || this.options.googlednt       || false,           // Google ad tracking.
+        onerror:                userOptions.onerror         || this.options.onerror         || function () { }, // Function to call when an error occurs
+        onadloaded:             userOptions.onadloaded      || this.options.onadloaded      || function () { }, // Function to call when ad loads
+        onadclosed:             userOptions.onadclosed      || this.options.onadclosed      || undefined        // Function to call when close button gets clicked
     };
 
     if (this.options.autoReload !== undefined) {
@@ -135,6 +138,7 @@ Smaato.prototype.setOptions = function (userOptions) {
 };
 
 Smaato.prototype.setSize = function () {
+    if (!this.element) return this;
     var width, height;
     this.options.dimension = "mma";
     this.options.dimensionstrict = false;
@@ -197,14 +201,14 @@ Smaato.prototype.setSize = function () {
             this.options.dimensionstrict = false;
             break;
     }
-
     this.element.style.height = this.height + "px";
     this.element.style.width = this.width + "px";
-
+   
     return this;
 };
 
 Smaato.prototype.setPosition = function () {
+    if (!this.element) return this;
     var left, top, bottom, right;
     var windowHeight = "innerHeight" in window ? window.innerHeight : document.documentElement.offsetHeight;
     var windowWidth = "innerWidth" in window ? window.innerWidth : document.documentElement.offsetWidth;
@@ -263,6 +267,7 @@ Smaato.prototype.setPosition = function () {
 };
 
 Smaato.prototype.reload = function () {
+    if (!this.element) return this;
     var windowHeight = "innerHeight" in window ? window.innerHeight : document.documentElement.offsetHeight;
     var windowWidth = "innerWidth" in window ? window.innerWidth : document.documentElement.offsetWidth;
 
@@ -298,7 +303,7 @@ Smaato.prototype.reload = function () {
 };
 
 Smaato.prototype.requestAd = function (ad) {
-    if (!ad) {
+    if (!ad || !this.element) {
         return false;
     }
     var params = [], key, value, query, url;
@@ -320,6 +325,7 @@ Smaato.prototype.requestAd = function (ad) {
     }
 };
 Smaato.prototype.handleVast = function (url) {
+    if (!this.element) return this;
     if (this.iframe) {
         this.iframe.parentNode.removeChild(this.iframe);
         this.iframe = undefined;
@@ -335,7 +341,6 @@ Smaato.prototype.handleVast = function (url) {
     //DMVAST handles the rest
     DMVAST.client.get(url, function (response) {
         if (response) {
-            console.log("got a respose", response);
             for (var adIdx = 0, adLen = response.ads.length; adIdx < adLen; adIdx++) {
                 var ad = response.ads[adIdx];
 
@@ -427,6 +432,7 @@ Smaato.prototype.handleVast = function (url) {
 };
 
 Smaato.prototype.handleNative = function (url) {
+    if (!this.element) return this;
     var doneCb = function () { };
     var xhr = new XMLHttpRequest();
     xhr.open('GET', url, true);
@@ -509,7 +515,7 @@ Smaato.prototype.handleNative = function (url) {
                             content += "<img src='" + beacon.textContent + "' width='1' height='1' />";
                         }
                     }
-                    this.updateView("<!DOCTYPE html><html><head><title>Smaato Ad page</title> <script src='http://code.jquery.com/jquery-2.1.3.min.js'></script><script src='https://raw.githubusercontent.com/aFarkas/html5shiv/master/src/html5shiv.js'></script><style> #adContent>p { padding: 0; margin: 0; }</style></head><body style='overflow:hidden;margin: 0; padding: 0;'><div id='adContent'>" + content + "</div></body></html>");
+                    this.updateView("<!DOCTYPE html><html><head><title>Smaato Ad page</title><style> #adContent>p { padding: 0; margin: 0; }</style></head><body style='overflow:hidden;margin: 0; padding: 0;'><div id='adContent'>" + content + "</div></body></html>");
                 }
                 else {
                     //Error
@@ -529,6 +535,7 @@ Smaato.prototype.handleNative = function (url) {
 };
 
 Smaato.prototype.handleAll = function (url) {
+    if (!this.element) return this;
     var doneCb = function () { };
     var xhr = new XMLHttpRequest();
     xhr.open('GET', url, true);
@@ -572,23 +579,27 @@ Smaato.prototype.handleAll = function (url) {
 };
 
 Smaato.prototype.updateView = function (html) {
+    if (!this.element) return this;
     this.iframe.setAttribute("srcdoc", html);
 };
 
 Smaato.prototype.remove = function () {
+    if (!this.element) return this;
     if (this.autoReload) clearTimeout(this.autoReload);
     if (this.element && this.element.parentNode) this.element.parentNode.removeChild(this.element);
-
+    this.element = null;
     return this;
 };
 
 Smaato.prototype.hide = function () {
+    if (!this.element) return this;
     this.element.style.display = "none";
 
     return this;
 };
 
 Smaato.prototype.show = function () {
+    if (!this.element) return this;
     var close, bg, text;
     if (this.options.closeButton) {
         close = document.createElement("div");
@@ -626,6 +637,7 @@ Smaato.prototype.show = function () {
 };
 
 Smaato.prototype.showAtXY = function (x, y) {
+    if (!this.element) return this;
     if (typeof x === 'undefined') x = 0;
     if (typeof y === 'undefined') y = 0;
     this.options.x = x;
