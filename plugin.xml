@@ -67,6 +67,8 @@
 
     <header-file src="src/ios/CDVSmaato.h" />
     <source-file src="src/ios/CDVSmaato.m" />
+    <!-- iOS development frameworks needed by Smaato Ad-->
+    <framework src="AdSupport.framework" />
   </platform>
   <!-- ubuntu -->
   <platform name="ubuntu"></platform>
