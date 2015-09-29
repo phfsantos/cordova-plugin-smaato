@@ -1,6 +1,6 @@
 {
   "name": "cordova-plugin-smaato",
-  "version": "0.5.1",
+  "version": "0.5.2",
   "description": "Cordova/PhoneGap plugin for Smaato, support Banner, Interstitial.",
   "cordova": {
     "id": "com.pherasoft.cordova-plugin-smaato",

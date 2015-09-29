@@ -106,7 +106,7 @@ var simpleAd = new Smaato(div, {
 });
 ```
 
-Or, show the banner Ad in some other way:
+Or, show a banner Ad in some other way:
 
 ```javascript
 // or, show a default banner at top
@@ -121,10 +121,10 @@ var banner = new Smaato(div, {
 });
 ```
 
-Or, show the video Ad in some other way:
+Or, show a video Ad in a custom way:
 
 ```javascript
-// or, show a default banner at top
+// or, show a video Ad in a custom way:
 var div = document.createElement("div");
 document.appendChild(div);
 var banner = new Smaato(div, {
@@ -138,10 +138,10 @@ var banner = new Smaato(div, {
 });
 ```
 
-Or, show the banner Ad in some other way:
+Or, show native Ad in a custom way:
 
 ```javascript
-// or, show a default banner at top
+// or, show native Ad in a custom way:
 var div = document.createElement("div");
 document.appendChild(div);
 var banner = new Smaato(div, {
