@@ -98,31 +98,31 @@ Smaato.prototype.setOptions = function (userOptions) {
         SomaUserID: this.options.SomaUserID,
         dimension: this.options.dimension,
         dimensionstrict: this.options.dimensionstrict,
-        // Options name     |   New Value               |   previous value              |   Default Value   |   Description
-        publisherId: userOptions.publisherId || this.options.publisherId || "",              // smaato ad publisherId
-        adId: userOptions.adId || this.options.adId || "",              // smaato ad id
-        type: userOptions.type || this.options.type || "all",           // all(img, text, richmedia), img, text, richmedia, vast, native
-        closeButton: userOptions.closeButton || this.options.closeButton || false,           // if set to true, will show a close button
-        overlay: userOptions.overlay || this.options.overlay || false,           // if set to true, will show an overlay the under ad
-        autoShow: userOptions.autoShow || this.options.autoShow || true,            // if set to true, no need call show
-        autoReload: userOptions.autoReload || this.options.autoReload || false,           // if set to true, no need to call reload
-        position: userOptions.position || this.options.position || 8,               // default position
-        adSize: userOptions.adSize || this.options.adSize || "LEADERBOARD",   // ad size
-        width: userOptions.width || this.options.width || 728,             // banner width, if set adSize to 'CUSTOM'
-        height: userOptions.height || this.options.height || 90,              // banner height, if set adSize to 'CUSTOM'
-        x: userOptions.x || this.options.x || 0,               // default X of banner
-        y: userOptions.y || this.options.y || 0,               // default Y of banner
-        isTesting: userOptions.isTesting || this.options.isTesting || false,           // if set to true, to receive test ads
-        session: userOptions.session || this.options.session || "",              // session for ads on this device
-        childDirected: userOptions.childDirected || this.options.childDirected || false,           // if set to true, ads are safe for children
-        gps: userOptions.gps || this.options.gps || undefined,       // GPS coordinates of the user`s location.
-        iosadid: userOptions.iosadid || this.options.iosadid || undefined,       // IOS ad id.
-        iosadtracking: userOptions.iosadtracking || this.options.iosadtracking || true,            // IOS ad tracking.
-        googleadid: userOptions.googleadid || this.options.googleadid || undefined,       // Google ad id.
-        googlednt: userOptions.googlednt || this.options.googlednt || false,           // Google ad tracking.
-        onerror: userOptions.onerror || this.options.onerror || function () { }, // Function to call when an error occurs
-        onadloaded: userOptions.onadloaded || this.options.onadloaded || function () { }, // Function to call when ad loads
-        onadclosed: userOptions.onadclosed || this.options.onadclosed || undefined        // Function to call when close button gets clicked
+        // Options name     |   New Value                   |  previous value               |   Default Value   |   Description
+        publisherId:            userOptions.publisherId     || this.options.publisherId     || "",              // smaato ad publisherId
+        adId:                   userOptions.adId            || this.options.adId            || "",              // smaato ad id
+        type:                   userOptions.type            || this.options.type            || "all",           // all(img, text, richmedia), img, text, richmedia, vast, native
+        closeButton:            userOptions.closeButton     || this.options.closeButton     || false,           // if set to true, will show a close button
+        overlay:                userOptions.overlay         || this.options.overlay         || false,           // if set to true, will show an overlay the under ad
+        autoShow:               userOptions.autoShow        || this.options.autoShow        || true,            // if set to true, no need call show
+        autoReload:             userOptions.autoReload      || this.options.autoReload      || false,           // if set to true, no need to call reload
+        position:               userOptions.position        || this.options.position        || 8,               // default position
+        adSize:                 userOptions.adSize          || this.options.adSize          || "LEADERBOARD",   // ad size
+        width:                  userOptions.width           || this.options.width           || 728,             // banner width, if set adSize to 'CUSTOM'
+        height:                 userOptions.height          || this.options.height          || 90,              // banner height, if set adSize to 'CUSTOM'
+        x:                      userOptions.x               || this.options.x               || 0,               // default X of banner
+        y:                      userOptions.y               || this.options.y               || 0,               // default Y of banner
+        isTesting:              userOptions.isTesting       || this.options.isTesting       || false,           // if set to true, to receive test ads
+        session:                userOptions.session         || this.options.session         || "",              // session for ads on this device
+        childDirected:          userOptions.childDirected   || this.options.childDirected   || false,           // if set to true, ads are safe for children
+        gps:                    userOptions.gps             || this.options.gps             || undefined,       // GPS coordinates of the user`s location.
+        iosadid:                userOptions.iosadid         || this.options.iosadid         || undefined,       // IOS ad id.
+        iosadtracking:          userOptions.iosadtracking   || this.options.iosadtracking   || true,            // IOS ad tracking.
+        googleadid:             userOptions.googleadid      || this.options.googleadid      || undefined,       // Google ad id.
+        googlednt:              userOptions.googlednt       || this.options.googlednt       || false,           // Google ad tracking.
+        onerror:                userOptions.onerror         || this.options.onerror         || function () { }, // Function to call when an error occurs
+        onadloaded:             userOptions.onadloaded      || this.options.onadloaded      || function () { }, // Function to call when ad loads
+        onadclosed:             userOptions.onadclosed      || this.options.onadclosed      || undefined        // Function to call when close button gets clicked
     };
 
     if (this.options.autoReload !== undefined) {
