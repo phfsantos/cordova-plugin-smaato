@@ -4,7 +4,7 @@ Present Smaato Ads in Mobile App/Games natively from JavaScript.
 
 Highlights:
 - [x] Easy-to-use APIs. Display Ad with single line of Js code.
-- [x] Support Banner, Interstitial Ad, and Video Ad.
+- [x] Support Banner, Interstitial, Native, and Video Ads.
 - [x] One plugin supports all plataforms.
 - [x] Multiple banner size, also support custom size.
 - [x] Fixed and overlapped mode.
@@ -45,48 +45,48 @@ var ad_units = {
     googleadid: "",
     googlednt: false,
     android: {
-        tiny_banner: '101002696', // Phones and Tablets 120 x 20
-        puny_banner: '101002695', // Phones and Tablets 168 x 28
-        little_banner: '101002694', // Phones and Tablets 216 x 36
-        small_banner: '101002693', // Tablets 300 x 50
-        banner: '101002692', // Phones and Tablets 320 x 50
-        medium_rectangle: '101002697', // Phones and Tablets 300 x 250
-        leaderboard: '101002669', // Tablets 728 x 90
-        interstitial: '101002659', // Phones and Tablets 100%
-        skyscraper: '101002698' // Tablets 120 x 600
+        tiny_banner: '101002696',       // Phones and Tablets 120 x 20
+        puny_banner: '101002695',       // Phones and Tablets 168 x 28
+        little_banner: '101002694',     // Phones and Tablets 216 x 36
+        small_banner: '101002693',      // Tablets 300 x 50
+        banner: '101002692',            // Phones and Tablets 320 x 50
+        medium_rectangle: '101002697',  // Phones and Tablets 300 x 250
+        leaderboard: '101002669',       // Tablets 728 x 90
+        interstitial: '101002659',      // Phones and Tablets 100%
+        skyscraper: '101002698'         // Tablets 120 x 600
     },
     ios: {
-        tiny_banner: '101002696', // Phones and Tablets 120 x 20
-        puny_banner: '101002695', // Phones and Tablets 168 x 28
-        little_banner: '101002694', // Phones and Tablets 216 x 36
-        small_banner: '101002693', // Tablets 300 x 50
-        banner: '101002692', // Phones and Tablets 320 x 50
-        medium_rectangle: '101002697', // Phones and Tablets 300 x 250
-        leaderboard: '101002669', // Tablets 728 x 90
-        interstitial: '101002659', // Phones and Tablets 100%
-        skyscraper: '101002698' // Tablets 120 x 600
+        tiny_banner: '101002696',       // Phones and Tablets 120 x 20
+        puny_banner: '101002695',       // Phones and Tablets 168 x 28
+        little_banner: '101002694',     // Phones and Tablets 216 x 36
+        small_banner: '101002693',      // Tablets 300 x 50
+        banner: '101002692',            // Phones and Tablets 320 x 50
+        medium_rectangle: '101002697',  // Phones and Tablets 300 x 250
+        leaderboard: '101002669',       // Tablets 728 x 90
+        interstitial: '101002659',      // Phones and Tablets 100%
+        skyscraper: '101002698'         // Tablets 120 x 600
     },
     wp8: {
-        tiny_banner: '101002675', // Phones and Tablets 120 x 20
-        puny_banner: '101002358', // Phones and Tablets 168 x 28
-        little_banner: '101002359', // Phones and Tablets 216 x 36
-        small_banner: '101002362', // Tablets 300 x 50
-        banner: '101002353', // Phones and Tablets 320 x 50
-        medium_rectangle: '101002354', // Phones and Tablets 300 x 250
-        leaderboard: '101002218', // Tablets 728 x 90
-        interstitial: '101002361', // Phones and Tablets 100%
-        skyscraper: '101002360' // Tablets 120 x 600
+        tiny_banner: '101002675',       // Phones and Tablets 120 x 20
+        puny_banner: '101002358',       // Phones and Tablets 168 x 28
+        little_banner: '101002359',     // Phones and Tablets 216 x 36
+        small_banner: '101002362',      // Tablets 300 x 50
+        banner: '101002353',            // Phones and Tablets 320 x 50
+        medium_rectangle: '101002354',  // Phones and Tablets 300 x 250
+        leaderboard: '101002218',       // Tablets 728 x 90
+        interstitial: '101002361',      // Phones and Tablets 100%
+        skyscraper: '101002360'         // Tablets 120 x 600
     },
     web: {
-        tiny_banner: '101002675', // Phones and Tablets 120 x 20
-        puny_banner: '101002358', // Phones and Tablets 168 x 28
-        little_banner: '101002359', // Phones and Tablets 216 x 36
-        small_banner: '101002362', // Tablets 300 x 50
-        banner: '101002353', // Phones and Tablets 320 x 50
-        medium_rectangle: '101002354', // Phones and Tablets 300 x 250
-        leaderboard: '101002218', // Tablets 728 x 90
-        interstitial: '101002361', // Phones and Tablets 100%
-        skyscraper: '101002360' // Tablets 120 x 600
+        tiny_banner: '101002675',       // Phones and Tablets 120 x 20
+        puny_banner: '101002358',       // Phones and Tablets 168 x 28
+        little_banner: '101002359',     // Phones and Tablets 216 x 36
+        small_banner: '101002362',      // Tablets 300 x 50
+        banner: '101002353',            // Phones and Tablets 320 x 50
+        medium_rectangle: '101002354',  // Phones and Tablets 300 x 250
+        leaderboard: '101002218',       // Tablets 728 x 90
+        interstitial: '101002361',      // Phones and Tablets 100%
+        skyscraper: '101002360'         // Tablets 120 x 600
     }
 };
 
@@ -121,6 +121,40 @@ var banner = new Smaato(div, {
 });
 ```
 
+Or, show the video Ad in some other way:
+
+```javascript
+// or, show a default banner at top
+var div = document.createElement("div");
+document.appendChild(div);
+var banner = new Smaato(div, {
+    publisherId: ad_units.publisherId,
+	adId: "1234545789", 
+	position: SMAATO_AD_POSITION.CENTER, 
+    adSize: SMAATO_AD_SIZE.CUSTOM,
+    width: 1024,
+    height: 768,
+    type: "vast"
+});
+```
+
+Or, show the banner Ad in some other way:
+
+```javascript
+// or, show a default banner at top
+var div = document.createElement("div");
+document.appendChild(div);
+var banner = new Smaato(div, {
+    publisherId: ad_units.publisherId,
+	adId: "1234545789", 
+	position: SMAATO_AD_POSITION.CENTER, 
+    adSize: SMAATO_AD_SIZE.CUSTOM,
+    width: 1024,
+    height: 768,
+    type: "native"
+});
+```
+
 Step 3: Prepare an interstitial, and show it when needed
 
 ```javascript
@@ -139,18 +173,18 @@ var interstitial = new Smaato({
 interstitial.show();
 ```
 
-## Javascript API Overview ##
+## Javascript Methods Overview ##
 
 Methods:
 ```javascript
-// set default value for other methods
-setOptions(options);
-// for banner
-show();
-showAtXY(x, y);
-hide();
-remove();
-reload();
+var smaatoAd = new Smaato();
+
+smaatoAd.setOptions(options); // set default value for other methods
+smaatoAd.show(); // show ad element
+smaatoAd.showAtXY(x, y); // show element at the coordinates
+smaatoAd.reload(); // requests a new ad
+smaatoAd.hide(); // hide ad element
+smaatoAd.remove(); // removes ad element and clear events
 ```
 
 ## All options ##
@@ -161,7 +195,8 @@ var options = {
     publisherId:        "",              // smaato ad publisherId
     adId:               "",              // smaato ad id
     closeButton:        false,           // if set to true, will show a close button
-    overlay:            false,           // if set to true, will show an overlay the under ad
+    overlay:            false,           // if set to true, will show an overlay the under ad        
+    type:               "all",           // all(img, text, richmedia), img, text, richmedia, vast, native
     autoShow:           true,            // if set to true, no need call show
     autoReload:         false,           // if set to true, no need to call reload
     position:           8,               // default position
