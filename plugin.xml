@@ -34,7 +34,7 @@
   <!-- android -->
   <platform name="android">
     <!-- cordova registry, for cordova/plugman CLI, Intel XDK -->
-    <dependency id="com.google.playservices@19.0.0" />
+    <framework src="com.google.android.gms:play-services-ads:8.3.0"/>
 
     <config-file target="AndroidManifest.xml" parent="/*">
       <uses-permission android:name="android.permission.INTERNET" />
