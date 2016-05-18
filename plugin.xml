@@ -91,4 +91,11 @@
       <runs />
     </js-module>
   </platform>
+  <!-- Win32NT -->
+  <platform name="Win32NT">
+    <js-module src="www/windows/Smaato.js" name="Smaato1">
+      <merges target="window.Smaato" />
+      <runs />
+    </js-module>
+  </platform>
 </plugin>
