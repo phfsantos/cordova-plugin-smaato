@@ -15,7 +15,8 @@
       "browser",
       "blackberry10",
       "windows8",
-      "windows"
+      "windows",
+      "Win32NT"
     ]
   },
   "repository": {
@@ -39,8 +40,7 @@
     "cordova-ubuntu",
     "cordova-browser",
     "cordova-blackberry10",
-    "cordova-windows8",
-    "cordova-windows"
+    "cordova-windows8"
   ],
   "engines": {
       "cordova": ">=3.0"
